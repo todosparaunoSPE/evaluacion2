@@ -1,1 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro Comunitario de Evaluación de Políticas Públicas del Gobierno de México</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 30px;
+        }
+        .container {
+            width: 80%;
+            max-width: 900px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #0072B1;
+            margin-bottom: 40px;
+        }
+        h1 {
+            color: #0072B1;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #0072B1;
+            font-size: 1.8em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .comment-box {
+            background-color: #f9f9f9;
+            border-left: 5px solid #0072B1;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin: 5px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        #comment-form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 30px;
+        }
+        #new-comment {
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            transition: all 0.3s;
+        }
+        #new-comment:focus {
+            border-color: #0072B1;
+            outline: none;
+        }
+        #submit-btn {
+            padding: 12px 20px;
+            background-color: #0072B1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+        #submit-btn:hover {
+            background-color: #005f8c;
+        }
+        ul {
+            margin-bottom: 20px;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            color: #333;
+            line-height: 1.5;
+        }
+        li strong {
+            color: #0072B1;
+        }
+        .footer {
+            background-color: #0072B1;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            width: 100%;
+            margin-top: 40px;
+            border-radius: 0 0 15px 15px;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
 
+<div class="container">
+    <h1>💬 Foro Comunitario: Evaluación de Políticas Públicas del Gobierno de México</h1>
+    <p>¡Bienvenidos al foro! Este es un espacio creado para que puedas compartir tus opiniones sobre las políticas públicas del gobierno actual de México. Tu opinión es valiosa y puede ayudar a mejorar el rumbo del país.</p>
+
+    <h2>Preguntas sobre las políticas públicas del gobierno de México:</h2>
+    <ul>
+        <li>1. <strong>¿Qué opinas sobre las políticas públicas implementadas por el gobierno de México en los últimos años?</strong><br>
+            ¿Crees que están beneficiando a la mayoría de los ciudadanos?
+        </li>
+        <li>2. <strong>¿Consideras que las reformas económicas del gobierno han tenido un impacto positivo en la estabilidad financiera del país?</strong><br>
+            ¿Qué cambios te gustaría ver en este ámbito?
+        </li>
+        <li>3. <strong>¿Cómo crees que las políticas sociales han afectado a las comunidades vulnerables?</strong><br>
+            ¿Crees que se ha hecho suficiente para reducir las desigualdades sociales?
+        </li>
+        <li>4. <strong>¿Qué piensas sobre las iniciativas ambientales y de sustentabilidad implementadas por el gobierno?</strong><br>
+            ¿Crees que están siendo efectivas en la protección del medio ambiente?
+        </li>
+        <li>5. <strong>¿Qué sugerencias tienes para mejorar las políticas públicas del gobierno actual?</strong><br>
+            Comparte tus ideas sobre lo que podría hacerse de manera diferente.
+        </li>
+    </ul>
+
+    <div id="comment-form">
+        <label for="new-comment">👉 Deja tus comentarios o preguntas sobre las políticas públicas del gobierno de México:</label>
+        <textarea id="new-comment" rows="4" placeholder="Escribe tu comentario aquí..."></textarea>
+        <button id="submit-btn">Agregar Comentario</button>
+    </div>
+
+    <h2>Comentarios:</h2>
+    <div id="comments-section">
+        <!-- Los comentarios se agregarán aquí -->
+    </div>
+</div>
+
+<div class="footer">
+    <p>Desarrollado por el Foro Comunitario | <a href="https://www.gob.mx" target="_blank">Visita el sitio oficial del Gobierno de México</a></p>
+</div>
+
+<script>
+    const API_URL = 'https://script.google.com/macros/s/AKfycbz0qvCjhfhgaMIMlF7OAcIs8fd8L3CH9qAk4Pcs-ESi19qiHMTYixOVcs6_Z8Uc1-de7Q/exec'; // Reemplaza con tu URL de Google Apps Script
+                     
+
+
+    
+    // Función para cargar comentarios desde Google Sheets
+    function loadComments() {
+        fetch(API_URL + '?action=getComments')
+            .then(response => response.json())
+            .then(comments => {
+                const commentsSection = document.getElementById('comments-section');
+                commentsSection.innerHTML = ''; // Limpiar la sección de comentarios
+                comments.forEach(commentObj => {
+                    const commentDiv = document.createElement('div');
+                    commentDiv.classList.add('comment-box');
+                    commentDiv.textContent = `- ${commentObj.comment}`;  // Mostrar solo el comentario
+                    commentsSection.appendChild(commentDiv);
+                });
+            });
+    }
+
+    // Función para agregar un comentario a Google Sheets
+    function addComment() {
+        const newComment = document.getElementById('new-comment').value;
+        if (newComment.trim() !== '') {
+            fetch(API_URL + `?action=addComment&comment=${encodeURIComponent(newComment)}`)
+                .then(response => response.text())
+                .then(() => {
+                    loadComments(); // Recargar los comentarios después de agregar uno nuevo
+                    document.getElementById('new-comment').value = ''; // Limpiar el campo de comentario
+                });
+        } else {
+            alert("Por favor, escribe un comentario antes de enviar.");
+        }
+    }
+
+    // Manejar el clic en el botón para agregar un comentario
+    document.getElementById('submit-btn').addEventListener('click', addComment);
+
+    // Cargar los comentarios al cargar la página
+    loadComments();
+</script>
+
+</body>
+</html>
